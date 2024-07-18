@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_w3118"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_52ped"]
+radius = 5.11555
 
 [node name="Player" type="RigidBody2D"]
 position = Vector2(576, 323)

@@ -1,22 +1,76 @@
-[gd_scene load_steps=5 format=3 uid="uid://4onitqfsdb7w"]
+[gd_scene load_steps=7 format=3 uid="uid://4onitqfsdb7w"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_2pgwj"]
 [ext_resource type="Texture2D" uid="uid://bf48ygplgiqn2" path="res://assets/purple.png" id="1_44hqa"]
 [ext_resource type="PackedScene" uid="uid://cpc0u1ngpst86" path="res://scenes/player.tscn" id="2_76xns"]
 [ext_resource type="PackedScene" uid="uid://beengof23xu1y" path="res://scenes/maze.tscn" id="4_lto0s"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_mebdw"]
+font_size = 124
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4dx6e"]
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_2pgwj")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Graphics" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Graphics"]
+layer = -20
+
+[node name="Background" type="TextureRect" parent="Graphics/CanvasLayer"]
 z_index = -100
-offset_right = 1152.0
-offset_bottom = 648.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_44hqa")
 stretch_mode = 1
+
+[node name="START" type="Label" parent="Graphics"]
+z_index = -5
+offset_left = 172.0
+offset_top = -1093.0
+offset_right = 541.0
+offset_bottom = -923.0
+rotation = 0.557665
+text = "START
+"
+label_settings = SubResource("LabelSettings_mebdw")
+
+[node name="FINISH" type="Label" parent="Graphics"]
+z_index = -5
+offset_left = 5887.0
+offset_top = -1220.0
+offset_right = 6287.0
+offset_bottom = -1050.0
+rotation = 0.523598
+text = "FINISH
+"
+label_settings = SubResource("LabelSettings_mebdw")
+
+[node name="Rules" type="Label" parent="Graphics"]
+offset_left = 172.0
+offset_top = -660.0
+offset_right = 629.0
+offset_bottom = -533.0
+text = "Use W,A,S,D to move your character, or use the arrow keys!
+
+Stay on the path.
+
+Make it to the finish line!"
+label_settings = SubResource("LabelSettings_4dx6e")
 
 [node name="Player" parent="." instance=ExtResource("2_76xns")]
 position = Vector2(126, -793)
 
 [node name="Maze" parent="." instance=ExtResource("4_lto0s")]
 z_index = -10
+
+[connection signal="body_entered" from="Maze" to="." method="_on_maze_body_entered"]
+[connection signal="body_exited" from="Maze" to="." method="_on_maze_body_exited"]
